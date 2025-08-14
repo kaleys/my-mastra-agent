@@ -2,8 +2,7 @@
 import { createOpenAI } from '@ai-sdk/openai'
 import { Agent } from '@mastra/core/agent'
 import { Memory } from '@mastra/memory'
-import { LibSQLStore } from '@mastra/libsql'
-// import { weatherTool } from '../tools/weather-tool'
+import { CloudflareStore } from '@mastra/cloudflare'
 import { amapMaps } from '../mcp/amap-maps'
 
 // 简单的时间戳 + 随机数
@@ -29,10 +28,12 @@ export const weatherAgent = new Agent({
       使用高德mcp获取当地的天气情况
 `,
   model: deepseekOpenAI('deepseek-chat'),
-  tools: await amapMaps.getTools(),
+  tools: () => amapMaps.getTools(),
   memory: new Memory({
-    storage: new LibSQLStore({
-      url: 'file:../mastra.db' // path is relative to the .mastra/output directory
+    storage: new CloudflareStore({
+      accountId: process.env.CLOUDFLARE_ACCOUNT_ID || '',
+      apiToken: process.env.CLOUDFLARE_API_TOKEN || '',
+      namespacePrefix: 'weather_memory_'
     })
-  })
+  }) as any
 })
