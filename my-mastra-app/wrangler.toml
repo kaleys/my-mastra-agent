@@ -1,10 +1,14 @@
-name = "my-mastra-agent"
+name = "mastra-weather-agent-server"
 main = ".mastra/output/index.mjs"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
 
+
 [observability.logs]
 enabled = true
 
-[env.production.vars]
+[build]
+command = "npm run build"
+
+[vars]
 NODE_ENV = "production"

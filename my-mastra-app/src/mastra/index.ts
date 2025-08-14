@@ -14,7 +14,8 @@ export const mastra = new Mastra({
   agents: { weatherAgent },
   deployer: new CloudflareDeployer({
     scope: process.env.CLOUDFLARE_ACCOUNT_ID || '',
-    projectName: 'my-mastra-app',
+    // accoutId: process.env.CLOUDFLARE_ACCOUNT_ID,
+    projectName: 'mastra-weather-agent-server',
     auth: {
       apiToken: process.env.CLOUDFLARE_API_TOKEN || ''
     },
