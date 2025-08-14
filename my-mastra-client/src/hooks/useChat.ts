@@ -20,14 +20,14 @@ export const useChat = () => {
     id: Date.now().toString(),
     content: '',
     role: 'user',
-    timestamp: new Date()
+    timestamp: new Date().toISOString()
   })
   const [isStreaming, setIsStreaming] = useState<boolean>(false)
 
   function resetCurrentMessage() {
     setCurrentMessage({
       id: '',
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       role: 'assistant',
       content: ''
     })
@@ -39,9 +39,10 @@ export const useChat = () => {
       id: Date.now().toString(),
       content,
       role: 'user',
-      timestamp: new Date()
+      threadId: 'test_001',
+      timestamp: new Date().toISOString()
     }
-
+    // 用户信息加入到聊天消息队列
     setChatState((prev) => ({
       ...prev,
       messages: [...prev.messages, userMessage],
@@ -55,7 +56,7 @@ export const useChat = () => {
       id: `assistant-${Date.now()}`,
       content: '',
       role: 'assistant',
-      timestamp: new Date()
+      timestamp: new Date().toISOString()
     }
 
     try {
@@ -90,7 +91,6 @@ export const useChat = () => {
           resetCurrentMessage()
         },
         onErrorPart(error) {
-          console.log(error)
           resetCurrentMessage()
           setChatState((prev) => ({
             ...prev,

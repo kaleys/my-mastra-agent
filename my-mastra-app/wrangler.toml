@@ -3,6 +3,9 @@ main = ".mastra/output/index.mjs"
 compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
 
+[[kv_namespaces]]
+binding = "MESSAGE_KV"
+id = "7acbab66d0664caba8f7e7c9089368df"
 
 [observability.logs]
 enabled = true
@@ -12,3 +15,10 @@ command = "npm run build"
 
 [vars]
 NODE_ENV = "production"
+DEEPSEEK_API_KEY = "sk-b445a584f232494c9fbdc9ccdebd6da2"
+AMAP_MAPS_API_KEY = "2a8e93bd5191cf5af69063eef7106977"
+CLOUDFLARE_ACCOUNT_ID = "23729f42a913969d54a79b9b2fd6a071"
+CF_API_TOKEN = "Ot3EQPH1qLjNSHOzj0VqC5avH9tjdpM1JWh51hhx"
+CLOUDFLARE_EMAIL = "Jia85200@gmail.com
+CLOUDFLARE_KVNAMESPACE = "mastra_weather_agent"
+

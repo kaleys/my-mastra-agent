@@ -4,9 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "mastra dev",
+    "dev": "dotenv -- mastra dev",
+    "dev:unsafe": "mastra dev",
     "build": "mastra build",
-    "start": "mastra start",
+    "start": "dotenv -- mastra start",
     "deploy": "wrangler deploy"
   },
   "keywords": [],
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.2.1",
+    "dotenv-cli": "^10.0.0",
     "mastra": "^0.10.21",
     "typescript": "^5.9.2"
   }

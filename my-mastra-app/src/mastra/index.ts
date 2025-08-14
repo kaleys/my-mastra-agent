@@ -17,7 +17,7 @@ export const mastra = new Mastra({
     // accoutId: process.env.CLOUDFLARE_ACCOUNT_ID,
     projectName: 'mastra-weather-agent-server',
     auth: {
-      apiToken: process.env.CLOUDFLARE_API_TOKEN || ''
+      apiToken: process.env.CF_API_TOKEN || ''
     },
     kvNamespaces: [
       {
@@ -26,11 +26,20 @@ export const mastra = new Mastra({
       }
     ]
   }),
-  storage: new CloudflareStore({
-    accountId: process.env.CLOUDFLARE_ACCOUNT_ID || '',
-    apiToken: process.env.CLOUDFLARE_API_TOKEN || '',
-    namespacePrefix: 'mastra_'
-  }),
+  // storage:
+  //   process.env.NODE_ENV === 'production'
+  //     ? new CloudflareStore({
+  //         binding: 'MESSAGE_KV'
+  //       })
+  //     : new CloudflareStore({
+  //         accountId: process.env.CLOUDFLARE_ACCOUNT_ID || '',
+  //         apiToken: process.env.CF_API_TOKEN || '',
+  //         kvNamespaceId: '7acbab66d0664caba8f7e7c9089368df'
+  //       }),
+
+  // telemetry: {
+  //   enabled: true
+  // },
   logger: new PinoLogger({
     name: 'Mastra',
     level: 'info'
