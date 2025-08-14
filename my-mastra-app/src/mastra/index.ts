@@ -13,12 +13,8 @@ export const mastra = new Mastra({
   // workflows: { weatherWorkflow },
   agents: { weatherAgent },
   deployer: new CloudflareDeployer({
-    scope: process.env.CLOUDFLARE_ACCOUNT_ID || '',
     // accoutId: process.env.CLOUDFLARE_ACCOUNT_ID,
     projectName: 'mastra-weather-agent-server',
-    auth: {
-      apiToken: process.env.CF_API_TOKEN || ''
-    },
     kvNamespaces: [
       {
         binding: 'MESSAGE_KV',
