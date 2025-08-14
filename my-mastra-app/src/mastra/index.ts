@@ -3,7 +3,7 @@
 import { Mastra } from '@mastra/core/mastra'
 import { PinoLogger } from '@mastra/loggers'
 import { CloudflareDeployer } from '@mastra/deployer-cloudflare'
-import { CloudflareStore } from '@mastra/cloudflare'
+// import { CloudflareStore } from '@mastra/cloudflare'
 import { weatherAgent } from './agents/weather-agent'
 
 // 注册代理，工作流，存储，日志等

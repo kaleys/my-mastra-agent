@@ -3,7 +3,8 @@ import { createOpenAI } from '@ai-sdk/openai'
 import { Agent } from '@mastra/core/agent'
 // import { Memory } from '@mastra/memory'
 // import { CloudflareStore } from '@mastra/cloudflare'
-import { amapMaps } from '../mcp/amap-maps'
+// import { amapMaps } from '../mcp/amap-maps'
+import { getCityCoordinates, getWeather } from '../tools/amap-tools'
 
 // 简单的时间戳 + 随机数
 const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
@@ -25,8 +26,10 @@ export const weatherAgent = new Agent({
       - 如果地点名称不是国内的，请提示只能查询国内的天气情况。
       - 如果用户询问的不是天气信息，请提示只能查询天气信息。
 
-      使用高德mcp获取当地的天气情况
+      请按照以下步骤操作：
+      1. 首先，使用 getCityCoordinates 工具获取城市的区域编码。
+      2. 然后，使用 getWeather 工具获取该区域编码的天气。
 `,
   model: deepseekOpenAI('deepseek-chat'),
-  tools: () => amapMaps.getTools()
+  tools: [getCityCoordinates, getWeather]
 })
