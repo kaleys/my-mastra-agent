@@ -13,18 +13,18 @@ const deepseekOpenAI = createOpenAI({
 })
 
 // 不同环境不同的调用cloudflare api的逻辑
-const storage =
-  process.env.NODE_ENV === 'production'
-    ? new D1Store({
-        binding: env.WEATHER_DB, // 这就够了
-        tablePrefix: 'weather_'
-      })
-    : new D1Store({
-        accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
-        databaseId: '623d2844-2117-4cbf-9b5b-2130ea0466e4',
-        apiToken: process.env.CF_API_TOKEN!,
-        tablePrefix: 'mastra_'
-      })
+// const storage =
+//   process.env.NODE_ENV === 'production'
+//     ? new D1Store({
+//         binding: env.WEATHER_DB, // 这就够了
+//         tablePrefix: 'weather_'
+//       })
+const storage = new D1Store({
+  accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+  databaseId: '623d2844-2117-4cbf-9b5b-2130ea0466e4',
+  apiToken: process.env.CF_API_TOKEN!,
+  tablePrefix: 'mastra_'
+})
 
 // 代理可以调用工具
 export const weatherAgent = new Agent({
