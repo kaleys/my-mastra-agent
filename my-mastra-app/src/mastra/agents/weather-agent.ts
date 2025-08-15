@@ -12,10 +12,11 @@ const deepseekOpenAI = createOpenAI({
   apiKey: process.env.DEEPSEEK_API_KEY
 })
 
+// 不同环境不同的调用cloudflare api的逻辑
 const storage =
   process.env.NODE_ENV === 'production'
     ? new D1Store({
-        binding: 'WEATHER_DB', // 这就够了
+        binding: env.WEATHER_DB, // 这就够了
         tablePrefix: 'weather_'
       })
     : new D1Store({
