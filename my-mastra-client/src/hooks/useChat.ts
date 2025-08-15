@@ -10,6 +10,14 @@ export const mastraClient = new MastraClient({
 
 const weatherAgent = await mastraClient.getAgent('weatherAgent')
 
+// 生成当前的threadId，memory用的
+let mastraRandomID = localStorage.getItem('mwacId') || ''
+if (!mastraRandomID) {
+  const tid = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+  mastraRandomID = tid
+  localStorage.setItem('mwacId', tid)
+}
+
 export const useChat = () => {
   const [chatState, setChatState] = useState<ChatState>({
     messages: [],
@@ -39,7 +47,6 @@ export const useChat = () => {
       id: Date.now().toString(),
       content,
       role: 'user',
-      threadId: 'test_001',
       timestamp: new Date().toISOString()
     }
     // 用户信息加入到聊天消息队列
@@ -61,7 +68,9 @@ export const useChat = () => {
 
     try {
       const stream = await weatherAgent.stream({
-        messages: [userMessage]
+        messages: [userMessage],
+        threadId: `thread_${mastraRandomID}`,
+        resourceId: `user_${mastraRandomID}`
       })
 
       await stream.processDataStream({

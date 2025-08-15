@@ -15,27 +15,15 @@ export const mastra = new Mastra({
   deployer: new CloudflareDeployer({
     // accoutId: process.env.CLOUDFLARE_ACCOUNT_ID,
     projectName: 'mastra-weather-agent-server',
-    kvNamespaces: [
+    d1Databases: [
       {
-        binding: 'MESSAGE_KV',
-        id: '7acbab66d0664caba8f7e7c9089368df'
+        binding: 'WEATHER_DB', // 这个就是 env.BIND_DB
+        database_name: 'weather-memory-db',
+        database_id: '623d2844-2117-4cbf-9b5b-2130ea0466e4'
       }
-    ]
+    ],
+    env: {}
   }),
-  // storage:
-  //   process.env.NODE_ENV === 'production'
-  //     ? new CloudflareStore({
-  //         binding: 'MESSAGE_KV'
-  //       })
-  //     : new CloudflareStore({
-  //         accountId: process.env.CLOUDFLARE_ACCOUNT_ID || '',
-  //         apiToken: process.env.CF_API_TOKEN || '',
-  //         kvNamespaceId: '7acbab66d0664caba8f7e7c9089368df'
-  //       }),
-
-  // telemetry: {
-  //   enabled: true
-  // },
   logger: new PinoLogger({
     name: 'Mastra',
     level: 'info'

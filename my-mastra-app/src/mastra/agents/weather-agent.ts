@@ -1,18 +1,29 @@
 /** @format */
 import { createOpenAI } from '@ai-sdk/openai'
 import { Agent } from '@mastra/core/agent'
-// import { Memory } from '@mastra/memory'
+import { Memory } from '@mastra/memory'
+import { D1Store } from '@mastra/cloudflare-d1'
 // import { CloudflareStore } from '@mastra/cloudflare'
 // import { amapMaps } from '../mcp/amap-maps'
 import { getCityCoordinates, getWeather } from '../tools/amap-tools'
-
-// 简单的时间戳 + 随机数
-const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
 const deepseekOpenAI = createOpenAI({
   baseURL: 'https://api.deepseek.com',
   apiKey: process.env.DEEPSEEK_API_KEY
 })
+
+const storage =
+  process.env.NODE_ENV === 'production'
+    ? new D1Store({
+        binding: 'WEATHER_DB', // 这就够了
+        tablePrefix: 'weather_'
+      })
+    : new D1Store({
+        accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+        databaseId: '623d2844-2117-4cbf-9b5b-2130ea0466e4',
+        apiToken: process.env.CF_API_TOKEN!,
+        tablePrefix: 'mastra_'
+      })
 
 // 代理可以调用工具
 export const weatherAgent = new Agent({
@@ -31,5 +42,11 @@ export const weatherAgent = new Agent({
       2. 然后，使用 getWeather 工具获取该区域编码的天气。
 `,
   model: deepseekOpenAI('deepseek-chat'),
-  tools: [getCityCoordinates, getWeather]
+  tools: {
+    getCityCoordinates,
+    getWeather
+  },
+  memory: new Memory({
+    storage: storage
+  })
 })

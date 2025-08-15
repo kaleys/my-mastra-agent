@@ -1,0 +1,18 @@
+name = "mastra-weather-agent-server"
+main = ".mastra/output/index.mjs"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
+
+[[d1_databases]]
+binding = "WEATHER_DB"
+database_name = "weather-memory-db"
+database_id = "623d2844-2117-4cbf-9b5b-2130ea0466e4"
+
+[observability.logs]
+enabled = true
+
+[build]
+command = "npm run build"
+
+[vars]
+NODE_ENV = "production"

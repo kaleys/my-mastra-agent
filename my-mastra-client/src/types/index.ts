@@ -6,6 +6,7 @@ export interface Message {
   role: 'user' | 'assistant'
   timestamp: string
   threadId?: string
+  resourceId?: string
   metadata?: Record<string, any>
 }
 
