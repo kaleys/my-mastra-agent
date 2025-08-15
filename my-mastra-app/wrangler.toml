@@ -1,0 +1,8 @@
+name = "mastra-weather-agent-server"
+main = ".mastra/output/index.mjs"
+
+[build]
+command = "npm run build"
+
+[vars]
+NODE_ENV = "production"
