@@ -1,8 +1,8 @@
 /** @format */
 import { createOpenAI } from '@ai-sdk/openai'
 import { Agent } from '@mastra/core/agent'
-import { Memory } from '@mastra/memory'
-import { D1Store } from '@mastra/cloudflare-d1'
+// import { Memory } from '@mastra/memory'
+// import { D1Store } from '@mastra/cloudflare-d1'
 // import { CloudflareStore } from '@mastra/cloudflare'
 // import { amapMaps } from '../mcp/amap-maps'
 import { getCityCoordinates, getWeather } from '../tools/amap-tools'
@@ -12,19 +12,19 @@ const deepseekOpenAI = createOpenAI({
   apiKey: process.env.DEEPSEEK_API_KEY
 })
 
-// 不同环境不同的调用cloudflare api的逻辑
+// 想给memory 存到D1数据库的，本地调通了
 // const storage =
 //   process.env.NODE_ENV === 'production'
 //     ? new D1Store({
-//         binding: env.WEATHER_DB, // 这就够了
+//         binding: env.WEATHER_DB, // 因为被mastra外面包了一层 ，所以env这个变量丢失了
 //         tablePrefix: 'weather_'
 //       })
-const storage = new D1Store({
-  accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
-  databaseId: '623d2844-2117-4cbf-9b5b-2130ea0466e4',
-  apiToken: process.env.CF_API_TOKEN!,
-  tablePrefix: 'mastra_'
-})
+//     : new D1Store({// 在worker环境，不支持用http的形式去调用它自己的数据库
+//         accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+//         databaseId: '623d2844-2117-4cbf-9b5b-2130ea0466e4',
+//         apiToken: process.env.CF_API_TOKEN!,
+//         tablePrefix: 'mastra_'
+//       })
 
 // 代理可以调用工具
 export const weatherAgent = new Agent({
@@ -46,8 +46,5 @@ export const weatherAgent = new Agent({
   tools: {
     getCityCoordinates,
     getWeather
-  },
-  memory: new Memory({
-    storage: storage
-  })
+  }
 })

@@ -15,13 +15,13 @@ export const mastra = new Mastra({
   deployer: new CloudflareDeployer({
     // accoutId: process.env.CLOUDFLARE_ACCOUNT_ID,
     projectName: 'mastra-weather-agent-server',
-    d1Databases: [
-      {
-        binding: 'WEATHER_DB', // 这个就是 env.BIND_DB
-        database_name: 'weather-memory-db',
-        database_id: '623d2844-2117-4cbf-9b5b-2130ea0466e4'
-      }
-    ],
+    // d1Databases: [
+    //   {
+    //     binding: 'WEATHER_DB', // 这个就是 env.BIND_DB
+    //     database_name: 'weather-memory-db',
+    //     database_id: '623d2844-2117-4cbf-9b5b-2130ea0466e4'
+    //   }
+    // ],
     env: {}
   }),
   logger: new PinoLogger({

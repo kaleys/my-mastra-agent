@@ -11,13 +11,6 @@
   "build": {
     "command": "npm run build"
   },
-  "d1_databases": [
-    {
-      "binding": "WEATHER_DB",
-      "database_name": "weather-memory-db",
-      "database_id": "623d2844-2117-4cbf-9b5b-2130ea0466e4"
-    }
-  ],
   "vars": {
     "NODE_ENV": "production"
   },
